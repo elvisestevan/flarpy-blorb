@@ -7,27 +7,30 @@ public class FloorSpawnScript : MonoBehaviour
     public GameObject floor;
     public float spawnRate = 2;
     private float timer = 0;
+    private LogicScript logic;
 
     // Start is called before the first frame update
     void Start()
     {
         this.spawn();
+        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timer < spawnRate)
+        if (!logic.isGameOver)
         {
-            timer = timer + Time.deltaTime;
+            if (timer < spawnRate)
+            {
+                timer = timer + Time.deltaTime;
+            }
+            else
+            {
+                this.spawn();
+                timer = 0;
+            }
         }
-        else
-        {
-            this.spawn();
-            timer = 0;
-        }
-
-
     }
 
     private void spawn()
