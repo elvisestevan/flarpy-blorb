@@ -7,6 +7,8 @@ public class MoveScript : MonoBehaviour
 
     public float moveSpeed = 5;
     public float deadZone = -30;
+    public bool loopSpawn = false;
+    public float initialXPosition = 48;
     private LogicScript logic;
 
     // Start is called before the first frame update
@@ -24,7 +26,13 @@ public class MoveScript : MonoBehaviour
 
             if (transform.position.x < deadZone)
             {
-                Destroy(gameObject);
+                if (loopSpawn)
+                {
+                    transform.position = new Vector2(initialXPosition, transform.position.y);
+                } else
+                {
+                    Destroy(gameObject);
+                }                
             }
         }
         
